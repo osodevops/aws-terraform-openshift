@@ -7,6 +7,10 @@ variable "ec2_instance_type" {
   default = "t3a.small"
 }
 
+variable "allowed_ips" {
+  type = list(string)
+}
+
 variable "environment" {
   type = string
 }

@@ -6,6 +6,7 @@ resource "aws_instance" "bastion" {
   associate_public_ip_address = true
   iam_instance_profile        = aws_iam_instance_profile.bastion_profile.name
   subnet_id                   = sort(data.aws_subnet_ids.public.ids)[0]
+  user_data                   = data.template_file.user_data.rendered
 
   root_block_device {
     delete_on_termination = true
