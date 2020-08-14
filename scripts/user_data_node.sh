@@ -1,7 +1,7 @@
 #!/bin/bash -x
 set +e
 
-hostnamectl set-hostname node${count}.${private_dns_zone}
+#hostnamectl set-hostname node${count}.${private_dns_zone}
 
 #log output from this user_data script
 exec > >(tee /var/log/user-data.log|logger -t user-data ) 2>&1

@@ -34,3 +34,14 @@ resource "aws_route53_record" "node_a_record" {
   ]
   depends_on = [aws_instance.node]
 }
+
+resource "aws_route53_zone" "reverse" {
+  name       = "10.in-addr.arpa"
+  comment    = "Reverse DNS Lookup for OCP - Managed by Terraform"
+  vpc {
+    vpc_id     = data.aws_vpc.mgmt.id
+    vpc_region = data.aws_region.current.name
+  }
+
+  tags = var.common_tags
+}
