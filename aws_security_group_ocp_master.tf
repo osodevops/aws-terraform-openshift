@@ -134,7 +134,17 @@ resource "aws_security_group_rule" "openshift_master_ingress_rule14" {
   security_group_id = aws_security_group.openshift_master.id
 }
 
+# This allows us to get console into the pods
 resource "aws_security_group_rule" "openshift_master_ingress_rule15" {
+  type              = "ingress"
+  from_port         = "10250"
+  to_port           = "10250"
+  protocol          = "tcp"
+  cidr_blocks       = ["0.0.0.0/0"]
+  security_group_id = aws_security_group.openshift_master.id
+}
+
+resource "aws_security_group_rule" "openshift_master_ingress_rule16" {
   type         = "ingress"
   from_port    = "8444"
   to_port    = "8444"
