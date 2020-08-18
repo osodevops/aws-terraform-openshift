@@ -20,9 +20,8 @@ data "template_file" "ansible_inventory" {
     access_key = aws_iam_access_key.openshift-aws-user.id
     secret_key = aws_iam_access_key.openshift-aws-user.secret
     public_hostname = "${aws_instance.master_node[0].public_ip}.xip.io"
-    master_inventory = aws_instance.master_node[0].private_dns
-    master_hostname = aws_instance.master_node[0].private_dns
     cluster_id = local.cluster_id
+    infra_nodes = "${join("\n", formatlist("%s openshift_node_group_name='node-config-infra'", aws_instance.master_node.*.private_dns))}"
     master_nodes = "${join("\n", formatlist("%s openshift_node_group_name='node-config-master'", aws_instance.master_node.*.private_dns))}"
     compute_nodes = "${join("\n", formatlist("%s openshift_node_group_name='node-config-compute'", aws_instance.node.*.private_dns))}"
   }
