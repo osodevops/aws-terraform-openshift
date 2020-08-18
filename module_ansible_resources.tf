@@ -22,13 +22,17 @@ data "template_file" "ansible_inventory" {
     public_hostname = "${aws_instance.master_node[0].public_ip}.xip.io"
     master_inventory = aws_instance.master_node[0].private_dns
     master_hostname = aws_instance.master_node[0].private_dns
-    node1_hostname = aws_instance.node[0].private_dns
-    node2_hostname = aws_instance.node[1].private_dns
     cluster_id = local.cluster_id
+    master_nodes = "${join("\n", formatlist("%s openshift_node_group_name='node-config-master'", aws_instance.master_node.*.private_dns))}"
+    compute_nodes = "${join("\n", formatlist("%s openshift_node_group_name='node-config-compute'", aws_instance.node.*.private_dns))}"
   }
 
   depends_on = [
     aws_instance.node,
     aws_instance.master_node
   ]
+}
+
+locals {
+
 }
