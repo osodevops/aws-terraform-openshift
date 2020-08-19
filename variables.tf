@@ -38,6 +38,31 @@ variable "master_node_data_volume_size" {
   default = 50
 }
 
+variable "web_console_admin_password" {
+  type = string
+  default = "password"
+}
+
+variable "web_console_admin_username" {
+  type = string
+  default = "admin"
+}
+
+variable "ssh-inbound-range" {
+  description = "CIDRs of address that are allowed to ssh in."
+  type        = list
+  default     = ["0.0.0.0/0"]
+}
+
+variable "subnet_ids" {
+  description = "List of subnet Ids"
+  type        = list
+}
+
+variable "vpc_id" {
+  type = string
+}
+
 variable "node_root_disk_size" {
   type = number
   default = 30

@@ -31,6 +31,11 @@ resource "aws_instance" "master_node" {
     encrypted             = false
   }
 
+  #script templates need to be on S3 before starting the instance
+  depends_on = [
+    aws_s3_bucket_object.master_post_install_script
+  ]
+
   tags = merge(local.common_tags,
          map("Name", "${upper(var.environment)}-MASTER-NODE-${count.index}"))
 }
